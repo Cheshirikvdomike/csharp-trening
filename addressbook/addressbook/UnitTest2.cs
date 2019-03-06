@@ -42,26 +42,56 @@ namespace addressbook
         [Test]
         public void CreateNewGroups()
         {
+            GotoUrl();//Переход по Url
+            Login();//Логин на сайт
+            CreateNewGroup();//Начало создание новой группы
+            SetNewAttributes(new PagesGroupData("Name1","Header1","Footer1"));//Установка аттрибутов группы
+            AcceptChangesNewGroup();//Применение установленых аттрибутов
+            ControlNewGroup();//Переход на страницу групп
+        }
+
+        private void GotoUrl()
+        {
             driver.Navigate().GoToUrl(baseURL);
+        }
+
+        private void Login()
+        {
             driver.FindElement(By.Name("user")).Clear();
             driver.FindElement(By.Name("user")).SendKeys("admin");
             driver.FindElement(By.Name("pass")).Clear();
             driver.FindElement(By.Name("pass")).SendKeys("secret");
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+        }
+        private void CreateNewGroup()
+        {
             driver.FindElement(By.LinkText("groups")).Click();
             driver.FindElement(By.Name("new")).Click();
+        }
+
+        private void SetNewAttributes(PagesGroupData pages)
+        {
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys("Name1");
+            driver.FindElement(By.Name("group_name")).SendKeys(pages.NameGroup);
             driver.FindElement(By.Name("group_header")).Click();
             driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys("New");
+            driver.FindElement(By.Name("group_header")).SendKeys(pages.HeaderGroup);
             driver.FindElement(By.Name("group_footer")).Click();
             driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys("NewNew");
+            driver.FindElement(By.Name("group_footer")).SendKeys(pages.FooterGroup);
+        }
+
+        private void AcceptChangesNewGroup()
+        {
             driver.FindElement(By.Name("submit")).Click();
+        }
+
+        private void ControlNewGroup()
+        {
             driver.FindElement(By.LinkText("group page")).Click();
         }
+
         private bool IsElementPresent(By by)
         {
             try
