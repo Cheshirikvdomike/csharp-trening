@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClass.cs" />
     <Compile Include="Pages.cs" />
     <Compile Include="ContactData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
