@@ -1,68 +1,96 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
+using System.Threading.Tasks;
 
 namespace addressbook
 {
-    [TestFixture]
-    public class ContactData:BaseClass
+    public class ContactData
     {
-        
-        private StringBuilder verificationErrors;
-        //private bool acceptNextAlert = true;
-       // private PagesGroupData pagesGroupData = new PagesGroupData("", "", "", "Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
+        private string nameGroup;
+        private string headerGroup;
+        private string footerGroup;
+        private string firstname;
+        private string lastname;
+        private string nickname;
+        private string company;
+        private string mobile;
 
-        [SetUp]
-        public void SetupTest()
+        public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
         {
-            
-            verificationErrors = new StringBuilder();
+      
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.nickname = nickname;
+            this.company = company;
+            this.mobile = mobile;
         }
 
-        [TearDown]
-        public void TeardownTest()
+        public string Mobile
         {
-            try
+            get
             {
-                driver.Quit();
+                return mobile;
             }
-            catch (Exception)
+            set
             {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
-
-        [Test]
-        public void CreateNewContacts()
-        {
-            GotoUrl();//Логин на сайт
-            SetNewAttributes();//Установка аттрибутов для создания группы
-        }
-
-
-       
-
-        private bool IsElementPresent(By by)
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
+                mobile = value;
             }
         }
 
-       
 
-       
+
+        public string Company
+        {
+            get
+            {
+                return company;
+            }
+            set
+            {
+                company = value;
+            }
+        }
+
+        public string Lastname
+        {
+            get
+            {
+                return lastname;
+            }
+            set
+            {
+                lastname = value;
+            }
+        }
+
+        public string Nickname
+        {
+            get
+            {
+                return nickname;
+            }
+            set
+            {
+                nickname = value;
+            }
+        }
+
+        public string FirstName
+        {
+            get
+            {
+                return firstname;
+            }
+            set
+            {
+                firstname = value;
+            }
+        }
+
+   
+
+   
     }
 }

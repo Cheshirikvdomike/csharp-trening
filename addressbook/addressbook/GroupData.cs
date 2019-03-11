@@ -1,62 +1,57 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
+using System.Threading.Tasks;
 
 namespace addressbook
 {
-    [TestFixture]
-    public class Groupdata: BaseClass
+   public class GroupData
     {
-        private StringBuilder verificationErrors;
-        
-        private bool acceptNextAlert = true;
-
-        [SetUp]
-        public void SetupTest()
+        private string nameGroup;
+        private string headerGroup;
+        private string footerGroup;
+        public GroupData(string name, string header, string footer)
         {
-            verificationErrors = new StringBuilder();
+            this.nameGroup = name;
+            this.headerGroup = header;
+            this.footerGroup = footer;
         }
 
-        [TearDown]
-        public void TeardownTest()
+        public string NameGroup
         {
-            try
+            get
             {
-                driver.Quit();
+                return nameGroup;
             }
-            catch (Exception)
+            set
             {
-                // Ignore errors if unable to close the browser
+                nameGroup = value;
             }
-            Assert.AreEqual("", verificationErrors.ToString());
         }
 
-        [Test]
-        public void CreateNewGroups()
+        public string HeaderGroup
         {
-            GotoUrl();//Переход по Url, Логин на сайт
-            CreateNewGroup();//Начало создание новой группы
-            SetNewAttributes();//Установка аттрибутов группы
-            AcceptChangesNewGroup();//Применение установленых аттрибутов
-            ControlNewGroup();//Переход на страницу групп
+            get
+            {
+                return headerGroup;
+            }
+            set
+            {
+                headerGroup = value;
+            }
         }
 
-        
-      
-
-       
-
-       
-
-        
-
-    
-
-
+        public string FooterGroup
+        {
+            get
+            {
+                return footerGroup;
+            }
+            set
+            {
+                footerGroup = value;
+            }
+        }
     }
 }
