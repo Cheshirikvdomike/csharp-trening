@@ -11,6 +11,7 @@ namespace addressbook
         private string login;
         private string password;
         private string baseUrl;
+
         public LoginUserData(string login, string password, string baseURL)
         {
             this.login = login;

@@ -18,9 +18,8 @@ namespace addressbook
 
         [SetUp]
         public void SetupTest()
-        {
-            
-            verificationErrors = new StringBuilder();
+        {          
+        verificationErrors = new StringBuilder();
         }
 
         [TearDown]
@@ -40,8 +39,10 @@ namespace addressbook
         [Test]
         public void CreateNewContacts()
         {
-            GotoUrl();//Логин на сайт
-            SetNewAttributes();//Установка аттрибутов для создания группы
+            LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
+            ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
+            GotomyUrl(loginUserData.BaseUrl, loginUserData.Login, loginUserData.Password);//Логин на сайт
+            SetNewAttributes(contactData.FirstName,contactData.Lastname,contactData.Nickname,contactData.Company,contactData.Mobile);//Установка аттрибутов для создания группы
         }
 
 

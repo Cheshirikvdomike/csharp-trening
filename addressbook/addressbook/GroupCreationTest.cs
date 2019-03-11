@@ -39,9 +39,11 @@ namespace addressbook
         [Test]
         public void CreateNewGroups()
         {
-            GotoUrl();//Переход по Url, Логин на сайт
+            GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
+            LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
+            GotomyUrl(loginUserData.BaseUrl,loginUserData.Login,loginUserData.Password);//Переход по Url, Логин на сайт
             CreateNewGroup();//Начало создание новой группы
-            SetNewAttributesgroup();//Установка аттрибутов группы
+            SetNewAttributesgroup(groupData.NameGroup,groupData.HeaderGroup,groupData.FooterGroup);//Установка аттрибутов группы
             AcceptChangesNewGroup();//Применение установленых аттрибутов
             ControlNewGroup();//Переход на страницу групп
         }

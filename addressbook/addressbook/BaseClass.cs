@@ -13,35 +13,27 @@ namespace addressbook
    public class BaseClass
     {
         protected FirefoxDriver driver = new FirefoxDriver();
-        protected GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
-        protected ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
-        protected LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
+        
 
-
-        protected void Login(string login, string password)
-        {
-
-        }
-
-    protected void SetNewAttributes()
+    protected void SetNewAttributes(string firstName, string lastname, string nickname, string company, string mobile)
     {
         Thread.Sleep(1000);
         driver.FindElement(By.XPath("//a[text()='add new']")).Click();
         driver.FindElement(By.Name("firstname")).Click();
         driver.FindElement(By.Name("firstname")).Clear();
-        driver.FindElement(By.Name("firstname")).SendKeys(contactData.FirstName);
+        driver.FindElement(By.Name("firstname")).SendKeys(firstName);
         driver.FindElement(By.Name("lastname")).Click();
         driver.FindElement(By.Name("lastname")).Clear();
-        driver.FindElement(By.Name("lastname")).SendKeys(contactData.Lastname);
+        driver.FindElement(By.Name("lastname")).SendKeys(lastname);
         driver.FindElement(By.Name("nickname")).Click();
         driver.FindElement(By.Name("nickname")).Clear();
-        driver.FindElement(By.Name("nickname")).SendKeys(contactData.Nickname);
+        driver.FindElement(By.Name("nickname")).SendKeys(nickname);
         driver.FindElement(By.Name("company")).Click();
         driver.FindElement(By.Name("company")).Clear();
-        driver.FindElement(By.Name("company")).SendKeys(contactData.Company);
+        driver.FindElement(By.Name("company")).SendKeys(company);
         driver.FindElement(By.Name("mobile")).Click();
         driver.FindElement(By.Name("mobile")).Clear();
-        driver.FindElement(By.Name("mobile")).SendKeys(contactData.Mobile);
+        driver.FindElement(By.Name("mobile")).SendKeys(mobile);
         driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
     }
 
@@ -70,13 +62,13 @@ namespace addressbook
 
        
 
-        protected void GotoUrl()
+        protected void GotomyUrl(string baseUrl, string login, string password)
         {
-            driver.Navigate().GoToUrl(loginUserData.BaseUrl);
+            driver.Navigate().GoToUrl(baseUrl);
             driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(loginUserData.Login);
+            driver.FindElement(By.Name("user")).SendKeys(login);
             driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(loginUserData.Password);
+            driver.FindElement(By.Name("pass")).SendKeys(password);
             driver.FindElement(By.Id("LoginForm")).Submit();
         }
 
@@ -86,17 +78,17 @@ namespace addressbook
             driver.FindElement(By.Name("new")).Click();
         }
 
-        protected void SetNewAttributesgroup()
+        protected void SetNewAttributesgroup(string nameGroup, string headerGroup, string footerGroup)
         {
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(groupData.NameGroup);
+            driver.FindElement(By.Name("group_name")).SendKeys(nameGroup);
             driver.FindElement(By.Name("group_header")).Click();
             driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(groupData.HeaderGroup);
+            driver.FindElement(By.Name("group_header")).SendKeys(headerGroup);
             driver.FindElement(By.Name("group_footer")).Click();
             driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(groupData.FooterGroup);
+            driver.FindElement(By.Name("group_footer")).SendKeys(footerGroup);
         }
     }
 }
