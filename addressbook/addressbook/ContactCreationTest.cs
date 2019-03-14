@@ -41,8 +41,8 @@ namespace addressbook
         {
             LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
             ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
-            GotomyUrl(loginUserData);//Логин на сайт
-            SetNewAttributes(contactData);//Установка аттрибутов для создания группы
+            loginHelper.GotomyUrl(loginUserData);//Логин на сайт
+            contactHelper.SetNewAttributes(contactData);//Установка аттрибутов для создания группы
         }
 
 

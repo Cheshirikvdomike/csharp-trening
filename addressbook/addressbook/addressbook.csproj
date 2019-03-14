@@ -60,7 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseClass.cs" />
+    <Compile Include="ContactHelper.cs" />
     <Compile Include="GroupData.cs" />
+    <Compile Include="GroupHelper.cs" />
+    <Compile Include="HelperBase.cs" />
+    <Compile Include="LoginHelper.cs" />
     <Compile Include="LoginUserData.cs" />
     <Compile Include="ContactData.cs" />
     <Compile Include="ContactCreationTest.cs" />
