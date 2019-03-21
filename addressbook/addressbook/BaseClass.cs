@@ -15,18 +15,13 @@ namespace addressbook
     {
         protected FirefoxDriver driver;
         private StringBuilder verificationErrors;
-        protected LoginHelper loginHelper;
-        protected GroupHelper groupHelper;
-        protected ContactHelper contactHelper;
         private bool acceptNextAlert = true;
+        protected ApplicationManager app;
 
         [SetUp]
         public void SetupTest()
         {
-        driver = new FirefoxDriver();
-        loginHelper = new LoginHelper(driver);
-            groupHelper = new GroupHelper(driver);
-            contactHelper = new ContactHelper(driver);
+            app = new ApplicationManager();
         }
     [TearDown]
     public void TeardownTest()

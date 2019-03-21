@@ -41,11 +41,12 @@ namespace addressbook
         {
             GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
             LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
-            loginHelper.GotomyUrl(loginUserData);//Переход по Url, Логин на сайт
-            groupHelper.CreateNewGroup();//Начало создание новой группы
-            groupHelper.SetNewAttributesgroup(groupData);//Установка аттрибутов группы
-            groupHelper.AcceptChangesNewGroup();//Применение установленых аттрибутов
-            groupHelper.ControlNewGroup();//Переход на страницу групп
+
+            app.login.GotomyUrl(loginUserData);//Переход по Url, Логин на сайт
+            app.Group.CreateNewGroup();//Начало создание новой группы
+            app.Group.SetNewAttributesgroup(groupData);//Установка аттрибутов группы
+            app.Group.AcceptChangesNewGroup();//Применение установленых аттрибутов
+            app.Group.ControlNewGroup();//Переход на страницу групп
         }
     }
 }
