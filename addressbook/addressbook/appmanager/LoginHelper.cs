@@ -25,5 +25,10 @@ namespace addressbook
             driver.FindElement(By.Name("pass")).SendKeys(loginUserData.Password);
             driver.FindElement(By.Id("LoginForm")).Submit();
         }
+
+        public void Logout()
+        {
+            driver.FindElement(By.LinkText("Logout")).Click();
+        }
     }
 }

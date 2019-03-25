@@ -18,7 +18,7 @@ namespace addressbook
         {
             
         }
-        public void SetNewAttributes(ContactData contactData)
+        public ContactHelper SetNewAttributes(ContactData contactData, string typeAction)
         {
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//a[text()='add new']")).Click();
@@ -37,7 +37,50 @@ namespace addressbook
             driver.FindElement(By.Name("mobile")).Click();
             driver.FindElement(By.Name("mobile")).Clear();
             driver.FindElement(By.Name("mobile")).SendKeys(contactData.Mobile);
-            driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            if (typeAction == "edit")
+                {
+                driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            }
+            else if(typeAction == "add")
+                {
+                driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+                }
+            return this;
+        }
+
+        public ContactHelper SelectContact()
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
+            return this;
+        }
+
+        public ContactHelper ReturnContactsPage()
+        {
+            driver.FindElement(By.XPath("//a[contains(text(),'home')]")).Click();
+            return this;
+        }
+
+        public ContactHelper BeginEdit()
+        {
+            driver.FindElement(By.XPath("//tbody//a[contains(@href,'edit')]")).Click(); 
+            return this;
+        }
+
+        public ContactHelper FinishedEditContact()
+        {
+            return this;
+        }
+
+        public ContactHelper CloseAlert()
+        {
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper DeletedContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
         }
 
     }

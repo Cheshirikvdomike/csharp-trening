@@ -1,27 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
 
-namespace addressbook
+namespace addressbook.tests
 {
     [TestFixture]
-    public class GroupCreationTest: BaseClass
+    public class EditedGroupTest : BaseClass
     {
         private StringBuilder verificationErrors;
-        
         private bool acceptNextAlert = true;
-
         [SetUp]
         public void SetupTest()
         {
             verificationErrors = new StringBuilder();
         }
-
         [TearDown]
         public void TeardownTest()
         {
@@ -35,18 +30,20 @@ namespace addressbook
             }
             Assert.AreEqual("", verificationErrors.ToString());
         }
-
         [Test]
-        public void CreateNewGroups()
+        public void Edited_Group_Test()
         {
-            GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
+            GroupData groupData = new GroupData("NewName1", "NewHeader1", "NewFooter1");
             LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
             app.login.GotomyUrl(loginUserData);//Переход по Url, Логин на сайт
-            app.Group.CreateNewGroup()//Начало создание новой группы
-                     .SetNewAttributesgroup(groupData)//Установка аттрибутов группы
-                     .AcceptChangesNewGroup()//Применение установленых аттрибутов
-                     .ControlNewGroup();//Переход на страницу групп
+            app.Group.SelectGroupSection()//Переходим в раздел Groups
+                .SelectGroup()//Выбираем группу
+                .BeginEditGroup()//Начинаем редактирование группы
+                .SetNewAttributesgroup(groupData)//Установка аттрибутов группы
+                .AcceptChangesNewGroup()//Применение установленых аттрибутов
+                .ControlNewGroup();//Переход на страницу групп
+            app.login.Logout();//Разлогиниваемся
         }
-        
+
     }
 }
