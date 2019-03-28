@@ -12,13 +12,15 @@ namespace addressbook
 {
    public class GroupHelper : HelperBase
     {
+        
 
-        public GroupHelper(FirefoxDriver driver) : base(driver)
+        public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
 
         public GroupHelper CreateNewGroup()
         {
+            manager.Navigation.GotoGroupsPage();
             driver.FindElement(By.LinkText("groups")).Click();
             driver.FindElement(By.Name("new")).Click();
             return this;
@@ -51,17 +53,12 @@ namespace addressbook
 
         public GroupHelper SetNewAttributesgroup(GroupData groupData)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(groupData.NameGroup);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(groupData.HeaderGroup);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(groupData.FooterGroup);
+            Type(By.Name("group_name"), groupData.NameGroup);
+            Type(By.Name("group_header"), groupData.HeaderGroup);
+            Type(By.Name("group_footer"), groupData.FooterGroup);
             return this;
         }
+       
 
         public GroupHelper ControlNewGroup()
         {

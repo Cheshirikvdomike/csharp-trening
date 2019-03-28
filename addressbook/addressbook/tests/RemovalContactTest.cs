@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace addressbook.tests
 {
     [TestFixture]
-    public class RemovalContactTest : BaseClass
+    public class RemovalContactTest : AuthTestBase
     {
         private StringBuilder verificationErrors;
         [SetUp]
@@ -16,23 +16,11 @@ namespace addressbook.tests
         {
             verificationErrors = new StringBuilder();
         }
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
+        
         [Test]
         public void DeleteContact()
         {
-            LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
+            
             app.Contact.ReturnContactsPage()//Переходим на страницу контактов
                 .SelectContact()//Выбираем контакт
                 .DeletedContact()//Удаляем контакт

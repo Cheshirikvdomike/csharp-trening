@@ -14,7 +14,7 @@ namespace addressbook
     public class ContactHelper:HelperBase
     {
         
-        public ContactHelper(FirefoxDriver driver):base(driver)
+        public ContactHelper(ApplicationManager manager):base(manager)
         {
             
         }
@@ -22,21 +22,11 @@ namespace addressbook
         {
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//a[text()='add new']")).Click();
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contactData.FirstName);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contactData.Lastname);
-            driver.FindElement(By.Name("nickname")).Click();
-            driver.FindElement(By.Name("nickname")).Clear();
-            driver.FindElement(By.Name("nickname")).SendKeys(contactData.Nickname);
-            driver.FindElement(By.Name("company")).Click();
-            driver.FindElement(By.Name("company")).Clear();
-            driver.FindElement(By.Name("company")).SendKeys(contactData.Company);
-            driver.FindElement(By.Name("mobile")).Click();
-            driver.FindElement(By.Name("mobile")).Clear();
-            driver.FindElement(By.Name("mobile")).SendKeys(contactData.Mobile);
+            Type(By.Name("firstname"), contactData.FirstName);
+            Type(By.Name("lastname"), contactData.Lastname);
+            Type(By.Name("nickname"), contactData.Nickname);
+            Type(By.Name("company"), contactData.Company);
+            Type(By.Name("mobile"), contactData.Mobile);
             if (typeAction == "edit")
                 {
                 driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
@@ -56,7 +46,7 @@ namespace addressbook
 
         public ContactHelper ReturnContactsPage()
         {
-            driver.FindElement(By.XPath("//a[contains(text(),'home')]")).Click();
+            manager.Navigation.GoToHomePage();
             return this;
         }
 

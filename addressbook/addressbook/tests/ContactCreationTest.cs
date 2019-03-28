@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook
 {
     [TestFixture]
-    public class ContactCreationTest:BaseClass
+    public class ContactCreationTest:AuthTestBase
     {
         
         private StringBuilder verificationErrors;
@@ -22,45 +22,18 @@ namespace addressbook
         verificationErrors = new StringBuilder();
         }
 
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
+    
 
         [Test]
         public void CreateNewContacts()
         {
-            LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
             ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
-            app.login.GotomyUrl(loginUserData);//Логин на сайт
             app.Contact.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
             app.login.Logout();
         }
 
 
-       
-
-        private bool IsElementPresent(By by)
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
+    
 
        
 

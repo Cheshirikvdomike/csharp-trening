@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace addressbook.tests
 {
     [TestFixture]
-    public class EditedGroupTest : BaseClass
+    public class EditedGroupTest : AuthTestBase
     {
         private StringBuilder verificationErrors;
         private bool acceptNextAlert = true;
@@ -17,27 +17,13 @@ namespace addressbook.tests
         {
             verificationErrors = new StringBuilder();
         }
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
+       
         [Test]
         public void Edited_Group_Test()
         {
             GroupData groupData = new GroupData("NewName1", "NewHeader1", "NewFooter1");
-            LoginUserData loginUserData = new LoginUserData("admin", "secret", "http://localhost/addressbook");
-            app.login.GotomyUrl(loginUserData);//Переход по Url, Логин на сайт
-            app.Group.SelectGroupSection()//Переходим в раздел Groups
-                .SelectGroup()//Выбираем группу
+            app.Navigation.GotoGroupsPage();//Переходим в раздел Groups
+            app.Group.SelectGroup()//Выбираем группу
                 .BeginEditGroup()//Начинаем редактирование группы
                 .SetNewAttributesgroup(groupData)//Установка аттрибутов группы
                 .AcceptChangesNewGroup()//Применение установленых аттрибутов

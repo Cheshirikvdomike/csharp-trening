@@ -10,13 +10,13 @@ namespace addressbook
     {
         private string login;
         private string password;
-        private string baseUrl;
+        
 
-        public LoginUserData(string login, string password, string baseURL)
+        public LoginUserData(string login, string password)
         {
             this.login = login;
             this.password = password;
-            this.baseUrl = baseURL;
+            
         }
 
         public string Login
@@ -43,16 +43,6 @@ namespace addressbook
             }
         }
 
-        public string BaseUrl
-        {
-            get
-            {
-                return baseUrl;
-            }
-            set
-            {
-                baseUrl = value;
-            }
-        }
+       
     }
 }

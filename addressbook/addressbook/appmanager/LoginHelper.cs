@@ -12,23 +12,40 @@ namespace addressbook
 {
    public class LoginHelper : HelperBase
     {
-        public LoginHelper(FirefoxDriver driver) : base(driver)
+        public LoginHelper(ApplicationManager manager) : base(manager)
         {
         }
 
-        public void GotomyUrl(LoginUserData loginUserData)
+        public void Login(LoginUserData loginUserData)
         {
-            driver.Navigate().GoToUrl(loginUserData.BaseUrl);
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(loginUserData.Login);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(loginUserData.Password);
+            if (IsLoggedIn())
+            {
+                if (IsLoggedIn(loginUserData))
+                { return; }
+                Logout();
+            }
+            Type(By.Name("user"), loginUserData.Login);
+            Type(By.Name("pass"), loginUserData.Password);
             driver.FindElement(By.Id("LoginForm")).Submit();
+        }
+
+        public bool IsLoggedIn(LoginUserData loginUserData)
+        {
+            return IsLoggedIn() && driver.FindElement(By.LinkText("Logout")).FindElement(By.TagName("b")).Text 
+                == "(" + loginUserData.Login + ")";
+        }
+
+        public bool IsLoggedIn()
+        {
+            return IsElementPresent(By.LinkText("Logout"));
         }
 
         public void Logout()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            if (IsLoggedIn())
+            {
+                driver.FindElement(By.LinkText("Logout")).Click();
+            }
         }
     }
 }
