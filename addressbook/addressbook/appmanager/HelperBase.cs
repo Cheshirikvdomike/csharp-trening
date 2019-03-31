@@ -30,6 +30,7 @@ namespace addressbook
 
         public bool IsElementPresent(By by)
         {
+
             try
             {
                 driver.FindElement(by);
