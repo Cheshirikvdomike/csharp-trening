@@ -22,9 +22,13 @@ namespace addressbook.tests
         public void GroupRemovalTest()
         {
             app.Navigation.GotoGroupsPage();//Переходим в раздел Groups
-            app.Group.SelectGroup()//Выбираем группу
+            List<GroupData> oldGroups = app.Group.GetGroupList();
+            app.Group.SelectGroup(0)//Выбираем группу
                 .RemoveGroup()//Удаляем первую выбранную группу
                 .SelectGroupSection();//Возвращаемся в раздел групп
+            List<GroupData> newGroups = app.Group.GetGroupList();
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups);
             app.login.Logout();//Разлогиниваемся
 
         }

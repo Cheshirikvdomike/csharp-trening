@@ -39,9 +39,21 @@ namespace addressbook
             return this;
         }
 
-        public GroupHelper SelectGroup()
+        public List<GroupData> GetGroupList()
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[1]/input[1]")).Click();
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigation.GotoGroupsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+               groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
+
+        public GroupHelper SelectGroup(int index)
+        {
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[1]/input["+(index+1)+"]")).Click();
             return this;
         }
 

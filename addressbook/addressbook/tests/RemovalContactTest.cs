@@ -20,12 +20,15 @@ namespace addressbook.tests
         [Test]
         public void DeleteContact()
         {
-            
+            List<ContactData> oldContacts = app.Contact.GetContactList();
             app.Contact.ReturnContactsPage()//Переходим на страницу контактов
-                .SelectContact()//Выбираем контакт
+                .SelectContact(0)//Выбираем контакт
                 .DeletedContact()//Удаляем контакт
                 .CloseAlert()//Подтверждаем удаление
                 .ReturnContactsPage();//Переходим на страницу контактов
+            List<ContactData> newConacts = app.Contact.GetContactList();
+            oldContacts.RemoveAt(0);
+            Assert.AreEqual(oldContacts, newConacts);
             app.login.Logout();
 
         }

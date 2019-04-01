@@ -18,6 +18,18 @@ namespace addressbook
         {
             
         }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> groups = new List<ContactData>();
+            manager.Navigation.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr.entry"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new ContactData(element.Text));
+            }
+            return groups;
+        }
         public ContactHelper SetNewAttributes(ContactData contactData, string typeAction)
         {
             Thread.Sleep(1000);
@@ -38,9 +50,9 @@ namespace addressbook
             return this;
         }
 
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
+            driver.FindElement(By.XPath("(//table//input[contains(@type, 'checkbox')])["+index+"]")).Click();
             return this;
         }
 
