@@ -13,7 +13,8 @@ namespace addressbook
 {
     public class ContactHelper:HelperBase
     {
-        
+        private List<ContactData> contactCashe = null;
+
         public ContactHelper(ApplicationManager manager):base(manager)
         {
             
@@ -21,16 +22,19 @@ namespace addressbook
 
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigation.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            string elementFirtstName = "//table//tr[@name='entry']//td[2]";
-            string elementLasttName = "//table//tr[@name='entry']//td[3]";
-            foreach (IWebElement element in elements)
+            if (contactCashe == null)
             {
-                contacts.Add(new ContactData(element.FindElement(By.XPath(elementFirtstName)).Text, element.FindElement(By.XPath(elementLasttName)).Text));
+                contactCashe = new List<ContactData>();
+                manager.Navigation.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                string elementFirtstName = "//table//tr[@name='entry']//td[2]";
+                string elementLasttName = "//table//tr[@name='entry']//td[3]";
+                foreach (IWebElement element in elements)
+                {
+                    contactCashe.Add(new ContactData(element.FindElement(By.XPath(elementFirtstName)).Text, element.FindElement(By.XPath(elementLasttName)).Text));
+                }   
             }
-            return contacts;
+            return new List<ContactData>(contactCashe);
         }
         public ContactHelper SetNewAttributes(ContactData contactData, string typeAction)
         {
@@ -44,11 +48,13 @@ namespace addressbook
             if (typeAction == "edit")
                 {
                 driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+                contactCashe = null;
             }
             else if(typeAction == "add")
                 {
                 driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
-                }
+                contactCashe = null;
+            }
             return this;
         }
 
@@ -66,7 +72,7 @@ namespace addressbook
 
         public ContactHelper BeginEdit()
         {
-            driver.FindElement(By.XPath("//tbody//a[contains(@href,'edit')]")).Click(); 
+            driver.FindElement(By.XPath("//tbody//a[contains(@href,'edit')]")).Click();
             return this;
         }
 
@@ -84,6 +90,7 @@ namespace addressbook
         public ContactHelper DeletedContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCashe = null;
             return this;
         }
 

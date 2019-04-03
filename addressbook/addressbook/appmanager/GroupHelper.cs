@@ -12,7 +12,7 @@ namespace addressbook
 {
    public class GroupHelper : HelperBase
     {
-        
+        private List<GroupData> groupCashe = null;
 
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
@@ -29,26 +29,32 @@ namespace addressbook
         public GroupHelper BeginEditGroup()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[3]")).Click();
-
+            groupCashe = null;
             return this;
         }
 
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[2]")).Click();
+            groupCashe = null;
             return this;
         }
 
+        
+
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-            manager.Navigation.GotoGroupsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach (IWebElement element in elements)
+            if (groupCashe == null)
             {
-               groups.Add(new GroupData(element.Text));
+                groupCashe = new List<GroupData>();
+                manager.Navigation.GotoGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+                    groupCashe.Add(new GroupData(element.Text));
+                }
             }
-            return groups;
+            return new List<GroupData>(groupCashe);
         }
 
         public GroupHelper SelectGroup(int index)
@@ -81,6 +87,7 @@ namespace addressbook
         public GroupHelper AcceptChangesNewGroup()
         {
             driver.FindElement(By.Name("submit")).Click();
+            groupCashe = null;
             return this;
         }
     }
