@@ -21,14 +21,16 @@ namespace addressbook
 
         public List<ContactData> GetContactList()
         {
-            List<ContactData> groups = new List<ContactData>();
+            List<ContactData> contacts = new List<ContactData>();
             manager.Navigation.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr.entry"));
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            string elementFirtstName = "//table//tr[@name='entry']//td[2]";
+            string elementLasttName = "//table//tr[@name='entry']//td[3]";
             foreach (IWebElement element in elements)
             {
-                groups.Add(new ContactData(element.Text));
+                contacts.Add(new ContactData(element.FindElement(By.XPath(elementFirtstName)).Text, element.FindElement(By.XPath(elementLasttName)).Text));
             }
-            return groups;
+            return contacts;
         }
         public ContactHelper SetNewAttributes(ContactData contactData, string typeAction)
         {

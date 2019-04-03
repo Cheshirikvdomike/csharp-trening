@@ -12,7 +12,7 @@ namespace addressbook
         [SetUp]
         public void SetupLogin()
         {
-            app.login.Login(new LoginUserData("admin", "secret"));//Логин на сайт
+            app.Auth.Login(new LoginUserData("admin", "secret"));//Логин на сайт
         }
     }
 }

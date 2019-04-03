@@ -22,8 +22,9 @@ namespace addressbook
 
         private ApplicationManager()
         {
-            baseUrl = "http://localhost";
+
             driver = new FirefoxDriver();
+            baseUrl = "http://localhost";
             navigator = new NavigationHelper(this,baseUrl);
             loginHelper = new LoginHelper(this);
             groupHelper = new GroupHelper(this);

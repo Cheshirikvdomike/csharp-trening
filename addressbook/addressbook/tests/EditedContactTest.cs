@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace addressbook.tests
+namespace addressbook
 {
     [TestFixture]
     public class EditedContactTest : AuthTestBase

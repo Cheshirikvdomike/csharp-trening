@@ -27,18 +27,22 @@ namespace addressbook
             this.mobile = mobile;
         }
 
-        public ContactData(string firstname)
+        public ContactData(string firstname, string lastname)
         {
             this.firstname = firstname;
+            this.lastname = lastname;
         }
 
         public int CompareTo(ContactData other)
         {
+            int resultCompare = 0;
             if (Object.ReferenceEquals(other, null))
             {
                 return 1;
             }
-            return FirstName.CompareTo(other.FirstName);
+            if ((FirstName.CompareTo(other.FirstName))==0 &&(Lastname.CompareTo(other.Lastname)) == 0) { resultCompare = 0; }
+
+           return resultCompare;
         }
 
         
