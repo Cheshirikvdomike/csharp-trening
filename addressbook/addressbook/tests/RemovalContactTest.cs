@@ -20,7 +20,13 @@ namespace addressbook
         [Test]
         public void DeleteContact()
         {
+            app.Contact.ReturnContactsPage();//Переходим на страницу контактов
             List<ContactData> oldContacts = app.Contact.GetContactList();
+            if (oldContacts.Count == 0)
+            {
+                ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
+                app.Contact.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
+            }
             app.Contact.ReturnContactsPage()//Переходим на страницу контактов
                 .SelectContact(0)//Выбираем контакт
                 .DeletedContact()//Удаляем контакт

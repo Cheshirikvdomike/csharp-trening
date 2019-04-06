@@ -23,6 +23,14 @@ namespace addressbook
         {
             app.Navigation.GotoGroupsPage();//Переходим в раздел Groups
             List<GroupData> oldGroups = app.Group.GetGroupList();
+            if (oldGroups.Count == 0)
+            {
+                GroupData groupData = new GroupData("NewName1", "NewHeader1", "NewFooter1");
+                app.Group.CreateNewGroup()//Начало создание новой группы
+                     .SetNewAttributesgroup(groupData);//Установка аттрибутов группы
+                app.Group.AcceptChangesNewGroup();//Применение установленых аттрибутов
+            }
+            app.Navigation.GotoGroupsPage();//Переходим в раздел Groups
             app.Group.SelectGroup(0)//Выбираем группу
                 .RemoveGroup()//Удаляем первую выбранную группу
                 .SelectGroupSection();//Возвращаемся в раздел групп
