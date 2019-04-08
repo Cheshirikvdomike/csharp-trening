@@ -40,9 +40,11 @@ namespace addressbook
             {
                 return 1;
             }
-            if ((FirstName.CompareTo(other.FirstName))==0 &&(Lastname.CompareTo(other.Lastname)) == 0) { resultCompare = 0; }
-
-           return resultCompare;
+            if (Lastname.CompareTo(other.Lastname) == 0)
+            {
+                return (FirstName.CompareTo(other.FirstName));
+            }
+            else { return Lastname.CompareTo(other.Lastname); }
         }
 
         

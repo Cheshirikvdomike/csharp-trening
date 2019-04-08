@@ -27,15 +27,12 @@ namespace addressbook
                 contactCashe = new List<ContactData>();
                 manager.Navigation.GoToHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-                int i = 1;
-                string elementFirtstName;
-                string elementLasttName;
+                ICollection<IWebElement> cells = null;
                 foreach (IWebElement element in elements)
                 {
-                    elementFirtstName = "(//table//tr[@name='entry']//td[2])" + "[" + i + "]";
-                    elementLasttName = "//table//tr[@name='entry']//td[3]" + "[" + i + "]";
-                    contactCashe.Add(new ContactData(element.FindElement(By.XPath(elementFirtstName)).Text, element.FindElement(By.XPath(elementLasttName)).Text));
-                    i++;
+                    cells = element.FindElements(By.TagName("td"));
+                    contactCashe.Add(new ContactData(cells.ElementAt(1).Text, cells.ElementAt(2).Text));
+                  
                 }   
             }
             return new List<ContactData>(contactCashe);
