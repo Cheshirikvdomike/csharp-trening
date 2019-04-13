@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -15,6 +16,28 @@ namespace addressbook
     {
         private List<ContactData> contactCashe = null;
 
+        public ContactData GetContactInformationForm(int v)
+        {
+            
+            manager.Navigation.GoToHomePage();
+            OpenInfoForm(0);
+            string contactInfo = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
+            string firstname = contactInfo.Substring(0,contactInfo.IndexOf(" "));
+            string lastname = contactInfo.Substring(contactInfo.IndexOf(" "), contactInfo.IndexOf("\r\n"));
+            return new ContactData(firstname, lastname)
+            {
+                
+            };
+
+        }
+
+        private void OpenInfoForm(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+
         public ContactData GetContactInformationFromTable(int index)
         {
             manager.Navigation.GoToHomePage();
@@ -22,11 +45,11 @@ namespace addressbook
                 .FindElements(By.TagName("td"));
             string lastname = cells[1].Text;
             string firstname = cells[2].Text;
-            string alllphones = cells[5].Text;
+            string allphones = cells[5].Text;
 
             return new ContactData(firstname, lastname)
             {
-                AllPhones = alllphones
+                AllPhones = allphones
             };
         }
 
@@ -36,7 +59,6 @@ namespace addressbook
             InitContactModification(0);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
-            
             string home = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             return new ContactData(firstName, lastName)
@@ -131,6 +153,14 @@ namespace addressbook
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             contactCashe = null;
             return this;
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigation.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
 
     }
