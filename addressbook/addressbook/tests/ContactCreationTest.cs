@@ -30,9 +30,9 @@ namespace addressbook
         public void CreateNewContacts()
         {
             ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
-            List<ContactData> oldContacts = app.Contact.GetContactList();
-            app.Contact.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
-            List<ContactData> newConacts = app.Contact.GetContactList();
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            app.Contacts.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
+            List<ContactData> newConacts = app.Contacts.GetContactList();
             oldContacts.Add(contactData);
             oldContacts.Sort();
             oldContacts.Sort();

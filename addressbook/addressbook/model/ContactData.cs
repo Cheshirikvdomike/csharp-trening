@@ -8,29 +8,31 @@ namespace addressbook
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string nameGroup;
-        private string headerGroup;
-        private string footerGroup;
-        private string firstname;
-        private string lastname;
-        private string nickname;
-        private string company;
-        private string mobile;
+        private string allPhones;
+
+        /* private string nameGroup;
+private string headerGroup;
+private string footerGroup;
+private string firstname;
+private string lastname;
+private string nickname;
+private string company;
+private string mobile;*/
 
         public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
         {
       
-            this.firstname = firstname;
-            this.lastname = lastname;
-            this.nickname = nickname;
-            this.company = company;
-            this.mobile = mobile;
+            FirstName = firstname;
+            Lastname = lastname;
+            Nickname = nickname;
+            Company = company;
+            Mobile = mobile;
         }
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            FirstName = firstname;
+            Lastname = lastname;
         }
 
         public int CompareTo(ContactData other)
@@ -62,17 +64,7 @@ namespace addressbook
             return ((FirstName == other.FirstName)&&(Lastname == other.Lastname));
         }
 
-        public string Mobile
-        {
-            get
-            {
-                return mobile;
-            }
-            set
-            {
-                mobile = value;
-            }
-        }
+        public string Mobile{get;set;}
 
         public override int GetHashCode()
         {
@@ -84,57 +76,38 @@ namespace addressbook
             return "name=" + FirstName;
         }
 
+        public string Homephone {get; set; }
+        
+        public string Company{get;set;}
 
-        public string Company
-        {
+        public string Lastname{get;set;}
+
+        public string Nickname{get;set;}
+
+        public string FirstName{get;set;}
+
+        public string AllPhones {
             get
             {
-                return company;
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(Homephone) + CleanUp(Mobile)).Trim();
+                }
             }
             set
             {
-                company = value;
-            }
-        }
+                allPhones = value;
+            } }
 
-        public string Lastname
+        private string CleanUp(string phone)
         {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
+            if (phone == null||phone=="")
+            { return ""; }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")+"\r\n";
         }
-
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
-        }
-
-        public string FirstName
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-
-   
-
-   
     }
 }

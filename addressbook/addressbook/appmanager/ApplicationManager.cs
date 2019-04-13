@@ -73,7 +73,7 @@ namespace addressbook
             get { return groupHelper; }
         }
 
-        public ContactHelper Contact
+        public ContactHelper Contacts
         {
             get { return contactHelper; }
         }

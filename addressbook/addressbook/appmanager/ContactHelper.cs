@@ -15,6 +15,44 @@ namespace addressbook
     {
         private List<ContactData> contactCashe = null;
 
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            IList<IWebElement> cells =  driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"));
+            string lastname = cells[1].Text;
+            string firstname = cells[2].Text;
+            string alllphones = cells[5].Text;
+
+            return new ContactData(firstname, lastname)
+            {
+                AllPhones = alllphones
+            };
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            InitContactModification(0);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            
+            string home = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            return new ContactData(firstName, lastName)
+            {
+                Homephone = home,
+                Mobile = mobile
+            };
+        }
+
+        private void InitContactModification(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
+        }
+
         public ContactHelper(ApplicationManager manager):base(manager)
         {
             
@@ -71,9 +109,9 @@ namespace addressbook
             return this;
         }
 
-        public ContactHelper BeginEdit()
+        public ContactHelper BeginEdit(int index)
         {
-            driver.FindElement(By.XPath("//tbody//a[contains(@href,'edit')]")).Click();
+            driver.FindElement(By.XPath("(//tbody//a[contains(@href,'edit')])["+index+"]")).Click();
             return this;
         }
 
