@@ -14,7 +14,23 @@ namespace addressbook
     public class GroupCreationTest: AuthTestBase
     {
         private StringBuilder verificationErrors;
+
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    HeaderGroup = GenerateRandomString(100),
+                    FooterGroup = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+
         
+
         private bool acceptNextAlert = true;
 
         [SetUp]
@@ -24,10 +40,10 @@ namespace addressbook
         }
 
 
-        [Test]
-        public void CreateNewGroups()
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void CreateNewGroups(GroupData groupData)
         {
-            GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
+            //GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
             List<GroupData> oldGroups = app.Group.GetGroupList();
             app.Group.CreateNewGroup()//Начало создание новой группы
                      .SetNewAttributesgroup(groupData);//Установка аттрибутов группы

@@ -52,7 +52,7 @@ namespace addressbook
 
         public override string ToString()
         {
-            return "name="+NameGroup;
+            return "name="+NameGroup+"\nheader= "+HeaderGroup+"\nfooter = "+FooterGroup;
         }
 
         public string NameGroup

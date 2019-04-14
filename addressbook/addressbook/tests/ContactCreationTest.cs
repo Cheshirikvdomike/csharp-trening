@@ -24,12 +24,26 @@ namespace addressbook
         verificationErrors = new StringBuilder();
         }
 
-    
-
-        [Test]
-        public void CreateNewContacts()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
+            List<ContactData> contact = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contact.Add(new ContactData(GenerateRandomString(20),GenerateRandomString(20))
+                {
+                    Company = GenerateRandomString(20),
+                    Mobile = GenerateRandomPhonenumber(10)
+                   
+                });
+            }
+            return contact;
+        }
+
+
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void CreateNewContacts(ContactData contactData)
+        {
+            //ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
             List<ContactData> newConacts = app.Contacts.GetContactList();
