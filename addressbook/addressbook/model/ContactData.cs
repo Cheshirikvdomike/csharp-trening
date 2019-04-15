@@ -10,6 +10,7 @@ namespace addressbook
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string email;
         private string aboutContact;
 
         /* private string nameGroup;
@@ -79,7 +80,30 @@ private string mobile;*/
         }
 
         public string Homephone {get; set; }
-        
+
+        public string WorkPhone { get; set; }
+
+        public string Address { get; set; }
+
+        public string Email
+        {
+            get
+            {
+                if (email != null)
+                {
+                    return email;
+                }
+                else
+                {
+                    return (Cleanmail(email)).Trim();
+                }
+            }
+            set
+            {
+                email = value;
+            }
+        }
+
         public string Company{get;set;}
 
         public string Lastname{get;set;}
@@ -97,7 +121,7 @@ private string mobile;*/
                 }
                 else
                 {
-                    return (CleanUp(Homephone) + CleanUp(Mobile)).Trim();
+                    return (CleanUp(Homephone) + CleanUp(Mobile)+ CleanUp(WorkPhone)).Trim();
                 }
             }
             set
@@ -123,6 +147,13 @@ private string mobile;*/
             }
       
         }
+        private string Cleanmail(string mail)
+        {
+            if (mail == null || mail == "")
+            { return ""; }
+            return Regex.Replace(mail, "[ ]", "");
+        }
+
 
         private string CleanUp(string phone)
         {
