@@ -13,15 +13,6 @@ namespace addressbook
         private string email;
         private string aboutContact;
 
-        /* private string nameGroup;
-private string headerGroup;
-private string footerGroup;
-private string firstname;
-private string lastname;
-private string nickname;
-private string company;
-private string mobile;*/
-
         public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
         {
       
@@ -67,7 +58,23 @@ private string mobile;*/
             return ((FirstName == other.FirstName)&&(Lastname == other.Lastname));
         }
 
-        public string Mobile{get;set;}
+        public string Mobile{
+            get
+            {
+                if (Mobile != null)
+                {
+                    return Mobile;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                Mobile = value;
+            }
+        }
 
         public override int GetHashCode()
         {
@@ -79,11 +86,61 @@ private string mobile;*/
             return "name=" + FirstName;
         }
 
-        public string Homephone {get; set; }
+        public string Homephone
+        {
+            get
+            {
+                if (Homephone != null)
+                {
+                    return Homephone;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                Homephone = value;
+            }
+        }
 
-        public string WorkPhone { get; set; }
+        public string WorkPhone {
+            get
+            {
+                if (WorkPhone != null)
+                {
+                    return WorkPhone;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                WorkPhone = value;
+            }
+        }
 
-        public string Address { get; set; }
+        public string Address
+        {
+            get
+            {
+                if (Address != null)
+                {
+                    return Address;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                Address = value;
+            }
+        }
 
         public string Email
         {
@@ -104,13 +161,64 @@ private string mobile;*/
             }
         }
 
-        public string Company{get;set;}
+        public string Company
+        {
+            get
+            {
+                if (Company != null)
+                {
+                    return Company;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                Company = value;
+            }
+        }
 
-        public string Lastname{get;set;}
+        public string Lastname{
+            get
+            {
+                if (Lastname != null)
+                {
+                    return Lastname;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                FirstName = value;
+            }
+        }
 
-        public string Nickname{get;set;}
+        public string Nickname
+        {get;set;}
 
-        public string FirstName{get;set;}
+        public string FirstName
+        {
+            get
+            {
+                if (FirstName != null)
+                {
+                    return FirstName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                FirstName = value;
+            }
+        }
 
         public string AllPhones {
             get
@@ -136,9 +244,18 @@ private string mobile;*/
                 {
                     return aboutContact;
                 }
+                
                 else
                 {
-                    return (FirstName + " " + Lastname + "\r\n" + "\r\n" + "H: "+CleanUp(Homephone)+"\r\n"+"M: "+ CleanUp(Mobile)).Trim();
+                    if (Homephone != null)
+                    { Homephone = "H: " + CleanUp(Homephone) + "\r\n"; }
+                    if (Mobile != null)
+                    { Mobile = "M: " + CleanUp(Mobile) + "\r\n"; }
+                    if (WorkPhone != null)
+                    { WorkPhone = "W: " + CleanUp(WorkPhone) + "\r\n"; }
+                    if (Company != null)
+                    { Company = Company + "\r\n"; }
+                    return (FirstName + " " + Lastname+ "\r\n"+Company + "\r\n" + Homephone + Mobile+ WorkPhone + "\r\n" +Email).Trim();
                 }
             }
             set

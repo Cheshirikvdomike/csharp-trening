@@ -16,11 +16,10 @@ namespace addressbook
     {
         private List<ContactData> contactCashe = null;
 
-        public ContactData GetContactInformationForm(int v)
+        public ContactData GetContactInformationForm(int index)
         {
-            
             manager.Navigation.GoToHomePage();
-            OpenInfoForm(0);
+            OpenInfoForm(index);
             string contactInfo = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
             string firstname = contactInfo.Substring(0,contactInfo.IndexOf(" "));
             string lastname = contactInfo.Substring(contactInfo.IndexOf(" "), contactInfo.IndexOf("\r\n"));
@@ -60,7 +59,7 @@ namespace addressbook
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigation.GoToHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string home = driver.FindElement(By.Name("home")).GetAttribute("value");
