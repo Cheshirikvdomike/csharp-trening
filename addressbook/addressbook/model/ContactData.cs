@@ -10,7 +10,7 @@ namespace addressbook
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
-        private string email;
+        private string allemails;
         private string aboutContact;
 
         public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
@@ -142,22 +142,79 @@ namespace addressbook
             }
         }
 
-        public string Email
+        public string Email2
         {
             get
             {
-                if (email != null)
+                if (Email2 != null)
                 {
-                    return email;
+                    return Email2;
                 }
                 else
                 {
-                    return (Cleanmail(email)).Trim();
+                    return (Cleanmail(Email2)).Trim();
                 }
             }
             set
             {
-                email = value;
+                Email2 = value;
+            }
+        }
+
+        public string Email3
+        {
+            get
+            {
+                if (Email3 != null)
+                {
+                    return Email3;
+                }
+                else
+                {
+                    return (Cleanmail(Email3)).Trim();
+                }
+            }
+            set
+            {
+                Email3 = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                if (Email != null)
+                {
+                    return Email;
+                }
+                else
+                {
+                    return (Cleanmail(Email)).Trim();
+                }
+            }
+            set
+            {
+                Email = value;
+            }
+        }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allemails != null)
+                {
+                    return allemails;
+                }
+                else
+                {
+                    return (Email + Email2 + Email3).Trim();
+                }
+            }
+            set
+            {
+                allemails = value;
             }
         }
 
@@ -268,7 +325,7 @@ namespace addressbook
         {
             if (mail == null || mail == "")
             { return ""; }
-            return Regex.Replace(mail, "[ ]", "");
+            return Regex.Replace(mail, "[ ]", "")+"\r\n";
         }
 
 

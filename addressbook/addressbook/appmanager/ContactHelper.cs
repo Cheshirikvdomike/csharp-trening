@@ -45,13 +45,13 @@ namespace addressbook
             string lastname = cells[1].Text;
             string firstname = cells[2].Text;
             string address = cells[3].Text;
-            string email = cells[4].Text;
+            string allemails = cells[4].Text;
             string allphones = cells[5].Text;
 
             return new ContactData(firstname, lastname)
             {
                 Address = address,
-                Email = email,
+                Email = allemails,
                 AllPhones = allphones
             };
         }
@@ -66,6 +66,8 @@ namespace addressbook
             string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workphone = driver.FindElement(By.Name("work")).GetAttribute("value");
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).Text;
             return new ContactData(firstName, lastName)
             {
@@ -74,6 +76,8 @@ namespace addressbook
                 WorkPhone = workphone,
                 Address = address,
                 Email = email
+                Email2 = email2,
+                Email3 = email3
                 
             };
         }
