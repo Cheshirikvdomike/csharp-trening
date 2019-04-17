@@ -16,17 +16,13 @@ namespace addressbook
     {
         private List<ContactData> contactCashe = null;
 
-        public ContactData GetContactInformationForm(int index)
+        public string GetContactInformationForm(int index)
         {
             manager.Navigation.GoToHomePage();
             OpenInfoForm(index);
             string contactInfo = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
-            string firstname = contactInfo.Substring(0,contactInfo.IndexOf(" "));
-            string lastname = contactInfo.Substring(contactInfo.IndexOf(" "), contactInfo.IndexOf("\r\n"));
-            return new ContactData(firstname, lastname)
-            {
-                
-            };
+            return contactInfo;
+            
 
         }
 
@@ -75,7 +71,7 @@ namespace addressbook
                 Mobile = mobile,
                 WorkPhone = workphone,
                 Address = address,
-                Email = email
+                Email = email,
                 Email2 = email2,
                 Email3 = email3
                 

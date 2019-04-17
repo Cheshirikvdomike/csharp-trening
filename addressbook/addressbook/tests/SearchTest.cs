@@ -14,9 +14,8 @@ namespace addressbook
         public void TestSearch()
         {
             ContactData fromTable = app.Contacts.GetContactInformationFromEditForm(0);
-            ContactData infoForm = app.Contacts.GetContactInformationForm(0);
-            Assert.AreEqual(fromTable, infoForm);
-            Assert.AreEqual(fromTable.AboutContact, infoForm.AboutContact);
+            string infoForm = app.Contacts.GetContactInformationForm(0);
+            Assert.AreEqual(fromTable.AboutContact, infoForm);
         }
     }
 }

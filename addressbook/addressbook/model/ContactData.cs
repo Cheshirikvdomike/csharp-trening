@@ -312,7 +312,7 @@ namespace addressbook
                     { WorkPhone = "W: " + CleanUp(WorkPhone) + "\r\n"; }
                     if (Company != null)
                     { Company = Company + "\r\n"; }
-                    return (FirstName + " " + Lastname+ "\r\n"+Company + "\r\n" + Homephone + Mobile+ WorkPhone + "\r\n" +Email).Trim();
+                    return (FirstName + " " + Lastname+ "\r\n"+CleanCompany(Company) + Homephone + Mobile+ WorkPhone +CleanCompany(Address)+ "\r\n" +AllEmails).Trim();
                 }
             }
             set
@@ -321,6 +321,14 @@ namespace addressbook
             }
       
         }
+
+        private string CleanCompany(string company)
+        {
+            if (company == null || company == "")
+            { return ""; }
+            return company + "\r\n";
+        }
+
         private string Cleanmail(string mail)
         {
             if (mail == null || mail == "")
