@@ -152,7 +152,7 @@ namespace addressbook
                 }
                 else
                 {
-                    return (Cleanmail(Email2)).Trim();
+                    return null;
                 }
             }
             set
@@ -171,7 +171,7 @@ namespace addressbook
                 }
                 else
                 {
-                    return (Cleanmail(Email3)).Trim();
+                    return null;
                 }
             }
             set
@@ -190,7 +190,7 @@ namespace addressbook
                 }
                 else
                 {
-                    return (Cleanmail(Email)).Trim();
+                    return null;
                 }
             }
             set
@@ -209,7 +209,7 @@ namespace addressbook
                 }
                 else
                 {
-                    return (Email + Email2 + Email3).Trim();
+                    return (Cleanmail(Email) + Cleanmail(Email2) + Cleanmail(Email3)).Trim();
                 }
             }
             set
