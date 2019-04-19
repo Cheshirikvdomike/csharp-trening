@@ -17,6 +17,7 @@ namespace addressbook
             this.headerGroup = header;
             this.footerGroup = footer;
         }
+        public GroupData() { }
 
         public int CompareTo(GroupData other)
         {

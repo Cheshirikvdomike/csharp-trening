@@ -13,6 +13,7 @@ namespace addressbook
         private string allemails;
         private string aboutContact;
 
+        public ContactData() { }
         public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
         {
       

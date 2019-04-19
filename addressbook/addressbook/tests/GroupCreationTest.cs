@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System.IO;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
@@ -39,8 +40,25 @@ namespace addressbook
             verificationErrors = new StringBuilder();
         }
 
+        public static IEnumerable<GroupData> GroupDataFromFile()
+        {
+            List<GroupData> contact = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contact.Add(new GroupData(parts[0])
+                {
+                    HeaderGroup = parts[1], 
+                    FooterGroup = parts[2]
+                });
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+            }
+            return contact;
+
+        }
+
+        [Test, TestCaseSource("GroupDataFromFile")]
         public void CreateNewGroups(GroupData groupData)
         {
             //GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
