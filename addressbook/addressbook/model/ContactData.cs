@@ -10,23 +10,34 @@ namespace addressbook
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string firstName;
         private string allemails;
         private string aboutContact;
+        private string lastName;
+        private string nickName;
+        private string company;
+        private string mobile;
+        private string homePhone;
+        private string workPhone;
+        private string email;
+        private string email2;
+        private string email3;
+        private string address;
 
         public ContactData() { }
         public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
         {
       
-            FirstName = firstname;
-            Lastname = lastname;
-            Nickname = nickname;
-            Company = company;
-            Mobile = mobile;
+            this.firstName = firstname;
+            this.lastName = lastname;
+            this.nickName = nickname;
+            this.company = company;
+            this.mobile = mobile;
         }
 
         public ContactData(string firstname, string lastname)
         {
-            FirstName = firstname;
+            firstName = firstname;
             Lastname = lastname;
         }
 
@@ -62,9 +73,9 @@ namespace addressbook
         public string Mobile{
             get
             {
-                if (Mobile != null)
+                if (mobile != null)
                 {
-                    return Mobile;
+                    return mobile;
                 }
                 else
                 {
@@ -73,7 +84,7 @@ namespace addressbook
             }
             set
             {
-                Mobile = value;
+                mobile = value;
             }
         }
 
@@ -91,9 +102,9 @@ namespace addressbook
         {
             get
             {
-                if (Homephone != null)
+                if (homePhone != null)
                 {
-                    return Homephone;
+                    return homePhone;
                 }
                 else
                 {
@@ -102,16 +113,16 @@ namespace addressbook
             }
             set
             {
-                Homephone = value;
+                homePhone = value;
             }
         }
 
         public string WorkPhone {
             get
             {
-                if (WorkPhone != null)
+                if (workPhone != null)
                 {
-                    return WorkPhone;
+                    return workPhone;
                 }
                 else
                 {
@@ -120,7 +131,7 @@ namespace addressbook
             }
             set
             {
-                WorkPhone = value;
+                workPhone = value;
             }
         }
 
@@ -128,9 +139,9 @@ namespace addressbook
         {
             get
             {
-                if (Address != null)
+                if (address != null)
                 {
-                    return Address;
+                    return address;
                 }
                 else
                 {
@@ -139,7 +150,7 @@ namespace addressbook
             }
             set
             {
-                Address = value;
+                address = value;
             }
         }
 
@@ -147,9 +158,9 @@ namespace addressbook
         {
             get
             {
-                if (Email2 != null)
+                if (email2 != null)
                 {
-                    return Email2;
+                    return email2;
                 }
                 else
                 {
@@ -158,7 +169,7 @@ namespace addressbook
             }
             set
             {
-                Email2 = value;
+                email2 = value;
             }
         }
 
@@ -166,9 +177,9 @@ namespace addressbook
         {
             get
             {
-                if (Email3 != null)
+                if (email3 != null)
                 {
-                    return Email3;
+                    return email3;
                 }
                 else
                 {
@@ -177,7 +188,7 @@ namespace addressbook
             }
             set
             {
-                Email3 = value;
+                email3 = value;
             }
         }
 
@@ -185,9 +196,9 @@ namespace addressbook
         {
             get
             {
-                if (Email != null)
+                if (email != null)
                 {
-                    return Email;
+                    return email;
                 }
                 else
                 {
@@ -196,7 +207,7 @@ namespace addressbook
             }
             set
             {
-                Email = value;
+                email = value;
             }
         }
 
@@ -223,9 +234,9 @@ namespace addressbook
         {
             get
             {
-                if (Company != null)
+                if (company != null)
                 {
-                    return Company;
+                    return company;
                 }
                 else
                 {
@@ -234,16 +245,16 @@ namespace addressbook
             }
             set
             {
-                Company = value;
+                company = value;
             }
         }
 
         public string Lastname{
             get
             {
-                if (Lastname != null)
+                if (lastName != null)
                 {
-                    return Lastname;
+                    return lastName;
                 }
                 else
                 {
@@ -252,7 +263,7 @@ namespace addressbook
             }
             set
             {
-                FirstName = value;
+                lastName = value;
             }
         }
 
@@ -263,9 +274,9 @@ namespace addressbook
         {
             get
             {
-                if (FirstName != null)
+                if (firstName != null)
                 {
-                    return FirstName;
+                    return firstName;
                 }
                 else
                 {
@@ -274,7 +285,7 @@ namespace addressbook
             }
             set
             {
-                FirstName = value;
+                firstName = value;
             }
         }
 
