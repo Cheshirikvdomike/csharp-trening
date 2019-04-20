@@ -5,6 +5,8 @@ using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
@@ -40,7 +42,7 @@ namespace addressbook
             return contact;
         }
 
-        public static IEnumerable<ContactData> ContactDataFromFile()
+        public static IEnumerable<ContactData> ContactDataFromCsvFile()
         {
             List<ContactData> contact = new List<ContactData>();
             string[] lines = File.ReadAllLines(@"contact.csv");
@@ -57,15 +59,19 @@ namespace addressbook
                     Email = parts[8],
                     Email2 = parts[9],
                     Email3 = parts[10]
-
                 });
-
             }
             return contact;
-
         }
 
-        [Test, TestCaseSource("ContactDataFromFile")]
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            return (List<ContactData>)
+                 new XmlSerializer(typeof(List<ContactData>))
+                 .Deserialize(new StreamReader(@"contacts.xml"));
+        }
+
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void CreateNewContacts(ContactData contactData)
         {
             //ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");

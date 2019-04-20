@@ -6,6 +6,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using System.IO;
 using OpenQA.Selenium.Firefox;
+using System.Xml.Serialization;
+using System.Xml;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 
@@ -30,7 +32,9 @@ namespace addressbook
             return groups;
         }
 
-        
+
+
+       
 
         private bool acceptNextAlert = true;
 
@@ -40,25 +44,31 @@ namespace addressbook
             verificationErrors = new StringBuilder();
         }
 
-        public static IEnumerable<GroupData> GroupDataFromFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
-            List<GroupData> contact = new List<GroupData>();
+            List<GroupData> groups = new List<GroupData>();
             string[] lines = File.ReadAllLines(@"groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
-                contact.Add(new GroupData(parts[0])
+                groups.Add(new GroupData(parts[0])
                 {
                     HeaderGroup = parts[1], 
                     FooterGroup = parts[2]
                 });
 
             }
-            return contact;
-
+            return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromFile")]
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+
+            return (List<GroupData>)
+                new XmlSerializer(typeof(List<GroupData>))
+                .Deserialize(new StreamReader(@"groups.xml"));
+        }
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void CreateNewGroups(GroupData groupData)
         {
             //GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
