@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook
 {
-   public class GroupHelper : HelperBase
+    public class GroupHelper : HelperBase
     {
         private List<GroupData> groupCashe = null;
 
@@ -39,6 +39,10 @@ namespace addressbook
             SelectGroup(group.Id);
 
             return this;
+        }
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
         public GroupHelper RemoveGroup(int index)
@@ -97,6 +101,7 @@ namespace addressbook
             driver.FindElement(By.XPath("//input[@name = 'selected[]' and @value'"+id+"']")).Click();
             return this;
         }
+
 
         public GroupHelper SelectGroupSection()
         {

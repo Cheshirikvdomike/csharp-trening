@@ -74,7 +74,7 @@ namespace addressbook
                      .SetNewAttributesgroup(groupData);//Установка аттрибутов группы
             app.Group.AcceptChangesNewGroup()//Применение установленых аттрибутов
                      .ControlNewGroup();//Переход на страницу групп
-            Assert.AreEqual(oldGroups.Count + 1, app.Group.GetGroupList().Count());
+            Assert.AreEqual(oldGroups.Count + 1, app.Group.GetGroupCount());
             List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(groupData);
             oldGroups.Sort();
@@ -85,14 +85,10 @@ namespace addressbook
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUi = app.Group.GetGroupList();
-            DateTime end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
-            start = DateTime.Now;
-            List<GroupData> fromDB = GroupData.GetAll();
-            end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact.Deprecated);
+            }
         }
         
     }

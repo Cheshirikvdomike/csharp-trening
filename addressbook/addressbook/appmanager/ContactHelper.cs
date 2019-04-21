@@ -22,8 +22,49 @@ namespace addressbook
             OpenInfoForm(index);
             string contactInfo = driver.FindElement(By.XPath("//div[@id = 'content']")).Text;
             return contactInfo;
-            
+        }
 
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.GoToHomePage();
+            SelectGroupInFilter(group.NameGroup);
+            SelectContact(contact.Id);
+            DeletedContact();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            
+        }
+
+        private void SelectGroupInFilter(string nameGroup)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(nameGroup);
+           
+
+
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelctGroupToAdd(group.NameGroup);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0 );
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelctGroupToAdd(string nameGroup)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(nameGroup);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");  
         }
 
         private void OpenInfoForm(int index)

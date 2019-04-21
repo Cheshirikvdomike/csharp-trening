@@ -86,6 +86,8 @@
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="model\AddressBookDB.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
+    <Compile Include="tests\AddingContactToGroupTests.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\BaseClass.cs" />
     <Compile Include="appmanager\ContactHelper.cs" />
@@ -104,10 +106,12 @@
     <Compile Include="tests\GroupRemoveTest.cs" />
     <Compile Include="tests\GroupTestBase.cs" />
     <Compile Include="tests\LoginTests.cs" />
+    <Compile Include="tests\RemovalContactFromgroupTests.cs" />
     <Compile Include="tests\RemovalContactTest.cs" />
     <Compile Include="tests\SearchTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <None Include="LinqToDB.Templates\DataModel.ttinclude" />

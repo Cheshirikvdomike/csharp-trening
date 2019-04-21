@@ -309,8 +309,14 @@ namespace addressbook
         {
           using (AddressBookDB db = new AddressBookDB())
             {
-            return (from g in db.Contacts select g).ToList(); 
+            return (from g in db.Contacts.Where(x=>x.Deprecated== "0000-00-00 00:00:00") select g).ToList(); 
             }
+        }
+
+        [Column (Name ="deprecated")]
+        public string Deprecated
+        {
+            get; set;
         }
 
         public string AllPhones {
@@ -378,5 +384,15 @@ namespace addressbook
             { return ""; }
             return Regex.Replace(phone, "[ -()]", "") +"\r\n";
         }
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts
+                        from gcr in db.GCR.Where(p=>p.GroupID ==Id &&   p.ContactID == c.Id)
+                        select c).ToList();
+            }
+        }   
     }
 }
