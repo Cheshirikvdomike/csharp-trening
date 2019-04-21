@@ -33,14 +33,43 @@ namespace addressbook
             return this;
         }
 
-        public GroupHelper RemoveGroup()
+        public GroupHelper Edit(GroupData group)
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/input[2]")).Click();
-            groupCashe = null;
+            manager.Navigation.GotoGroupsPage();
+            SelectGroup(group.Id);
+
             return this;
         }
 
-        
+        public GroupHelper RemoveGroup(int index)
+        {
+            manager.Navigation.GoToHomePage();
+            SelectGroup(index);
+            driver.FindElement(By.XPath("//div[@id='content']/form/input[2]")).Click();
+            manager.Navigation.GotoGroupsPage();
+            groupCashe = null;
+            return this;
+        }
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigation.GotoGroupsPage();
+            SelectGroup(group.Id);
+            driver.FindElement(By.XPath("//div[@id='content']/form/input[2]")).Click();
+            manager.Navigation.GotoGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Modify(int index, GroupData group)
+        {
+            manager.Navigation.GotoGroupsPage();
+            SelectGroup(index);
+            BeginEditGroup();
+            Type(By.Name("group_name"), group.NameGroup);
+            Type(By.Name("group_header"), group.HeaderGroup);
+            Type(By.Name("group_footer"), group.FooterGroup);
+            return this;
+        }
+
 
         public List<GroupData> GetGroupList()
         {
@@ -60,6 +89,12 @@ namespace addressbook
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/span[1]/input["+(index+1)+"]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("//input[@name = 'selected[]' and @value'"+id+"']")).Click();
             return this;
         }
 

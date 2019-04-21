@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace addressbook
 {
     [TestFixture]
-    public class RemovalContactTest : AuthTestBase
+    public class RemovalContactTest : GroupTestBase
     {
         private StringBuilder verificationErrors;
         [SetUp]
@@ -21,18 +21,17 @@ namespace addressbook
         public void DeleteContact()
         {
             app.Contacts.ReturnContactsPage();//Переходим на страницу контактов
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             if (oldContacts.Count == 0)
             {
                 ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
                 app.Contacts.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
             }
+            oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[0];
             app.Contacts.ReturnContactsPage()//Переходим на страницу контактов
-                .SelectContact(0)//Выбираем контакт
-                .DeletedContact()//Удаляем контакт
-                .CloseAlert()//Подтверждаем удаление
-                .ReturnContactsPage();//Переходим на страницу контактов
-            List<ContactData> newConacts = app.Contacts.GetContactList();
+                .Remove(toBeRemoved);
+            List<ContactData> newConacts = ContactData.GetAll();
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newConacts);
             app.login.Logout();

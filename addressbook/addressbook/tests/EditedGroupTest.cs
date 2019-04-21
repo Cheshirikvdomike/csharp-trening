@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace addressbook
 {
     [TestFixture]
-    public class EditedGroupTest : AuthTestBase
+    public class EditedGroupTest : GroupTestBase
     {
         private StringBuilder verificationErrors;
         private bool acceptNextAlert = true;
@@ -17,33 +17,31 @@ namespace addressbook
         {
             verificationErrors = new StringBuilder();
         }
-       
+
         [Test]
         public void Edited_Group_Test()
         {
-            GroupData groupData = new GroupData("NewName1", "NewHeader1", "NewFooter1");
-            app.Navigation.GotoGroupsPage();//Переходим в раздел Groups
-            List<GroupData> oldGroups = app.Group.GetGroupList();
+            GroupData newData = new GroupData("NmeGroup1");
+            newData.HeaderGroup = "Header1";
+            newData.FooterGroup = "Footer1";
+            List<GroupData> oldGroups = GroupData.GetAll();
             if (oldGroups.Count == 0)
             {
-                app.Group.CreateNewGroup()//Начало создание новой группы
-                     .SetNewAttributesgroup(groupData);//Установка аттрибутов группы
-                app.Group.AcceptChangesNewGroup();//Применение установленых аттрибутов
+               app.Group.CreateNewGroup()//Начало создание новой группы
+                  .SetNewAttributesgroup(newData)//Установка аттрибутов группы
+                  .AcceptChangesNewGroup();//Применение установленых аттрибутов
             }
-            app.Navigation.GotoGroupsPage();//Переходим в раздел Groups
-            app.Group.SelectGroup(0)//Выбираем группу
-                .BeginEditGroup()//Начинаем редактирование группы
-                .SetNewAttributesgroup(groupData);//Установка аттрибутов группы
-            
-            app.Group.AcceptChangesNewGroup()//Применение установленых аттрибутов
-                .ControlNewGroup();//Переход на страницу групп
-            List<GroupData> newGroups = app.Group.GetGroupList();
-            oldGroups[0].NameGroup = groupData.NameGroup;
+            oldGroups = GroupData.GetAll();
+            app.Group.Modify(0, newData);
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
             app.login.Logout();//Разлогиниваемся
-        }
 
+               
+            }
+
+        
     }
 }

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace addressbook
 {
     [TestFixture]
-    public class EditedContactTest : AuthTestBase
+    public class EditedContactTest : GroupTestBase
     {
         private StringBuilder verificationErrors;
         [SetUp]
@@ -22,7 +22,7 @@ namespace addressbook
         {
             ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
             app.Contacts.ReturnContactsPage();//Переходим на страницу контактов
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             if (oldContacts.Count == 0)
             {
                 app.Contacts.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
@@ -31,7 +31,7 @@ namespace addressbook
                 .BeginEdit(1)//Начинаем редактирование контакта
                 .SetNewAttributes(contactData, "edit")//Установка аттрибутов для редактирования группы
                 .ReturnContactsPage();//Переходим на страницу контактов
-            List<ContactData> newConacts = app.Contacts.GetContactList();
+            List<ContactData> newConacts = ContactData.GetAll();
             oldContacts[0].Mobile = contactData.Mobile;
             oldContacts.Sort();
             newConacts.Sort();

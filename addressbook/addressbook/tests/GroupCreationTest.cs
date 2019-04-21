@@ -8,13 +8,14 @@ using System.IO;
 using OpenQA.Selenium.Firefox;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Linq;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 
 namespace addressbook
 {
     [TestFixture]
-    public class GroupCreationTest: AuthTestBase
+    public class GroupCreationTest: GroupTestBase
     {
         private StringBuilder verificationErrors;
 
@@ -31,10 +32,6 @@ namespace addressbook
             }
             return groups;
         }
-
-
-
-       
 
         private bool acceptNextAlert = true;
 
@@ -72,17 +69,30 @@ namespace addressbook
         public void CreateNewGroups(GroupData groupData)
         {
             //GroupData groupData = new GroupData("Name1", "Header1", "Footer1");
-            List<GroupData> oldGroups = app.Group.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             app.Group.CreateNewGroup()//Начало создание новой группы
                      .SetNewAttributesgroup(groupData);//Установка аттрибутов группы
             app.Group.AcceptChangesNewGroup()//Применение установленых аттрибутов
                      .ControlNewGroup();//Переход на страницу групп
-            List<GroupData> newGroups =  app.Group.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, app.Group.GetGroupList().Count());
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(groupData);
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
             
+        }
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Group.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+            start = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
         
     }

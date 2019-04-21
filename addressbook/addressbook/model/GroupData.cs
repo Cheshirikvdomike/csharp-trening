@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace addressbook
 {
+    [Table (Name = "group_list")]
    public class GroupData:IEquatable<GroupData>, IComparable<GroupData>
     {
         private string nameGroup;
@@ -56,6 +58,7 @@ namespace addressbook
             return "name="+NameGroup+"\nheader= "+HeaderGroup+"\nfooter = "+FooterGroup;
         }
 
+        [Column(Name = "group_name"), NotNull]
         public string NameGroup
         {
             get
@@ -68,6 +71,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "group_header"), NotNull]
         public string HeaderGroup
         {
             get
@@ -80,6 +84,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "group_footer"), NotNull]
         public string FooterGroup
         {
             get
@@ -89,6 +94,17 @@ namespace addressbook
             set
             {
                 footerGroup = value;
+            }
+        }
+
+        [Column(Name = "group_id"), PrimaryKey, Identity]
+        public string Id { get; set; }
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups select g).ToList();
             }
         }
     }

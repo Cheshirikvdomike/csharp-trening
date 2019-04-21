@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace addressbook
 {
     [TestFixture]
-    public class ContactCreationTest:AuthTestBase
+    public class ContactCreationTest: GroupTestBase
     {
         
         private StringBuilder verificationErrors;
@@ -75,9 +75,9 @@ namespace addressbook
         public void CreateNewContacts(ContactData contactData)
         {
             //ContactData contactData = new ContactData("Vasya", "Fedorov", "Vektor", "Horse and frogs", "123456789");
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             app.Contacts.SetNewAttributes(contactData, "add");//Установка аттрибутов для создания группы
-            List<ContactData> newConacts = app.Contacts.GetContactList();
+            List<ContactData> newConacts = ContactData.GetAll();
             oldContacts.Add(contactData);
             oldContacts.Sort();
             oldContacts.Sort();

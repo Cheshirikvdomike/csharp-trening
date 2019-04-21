@@ -52,6 +52,15 @@ namespace addressbook
             };
         }
 
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigation.GoToHomePage();
+            SelectContact(contact.Id);
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            manager.Navigation.GoToHomePage();
+            return this;
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigation.GoToHomePage();
@@ -132,6 +141,12 @@ namespace addressbook
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//table//input[contains(@type, 'checkbox')])["+index+"]")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("//input[@name = 'selected[]' and @value'"+id+"']")).Click();
             return this;
         }
 

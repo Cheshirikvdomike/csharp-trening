@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace addressbook
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -25,9 +27,9 @@ namespace addressbook
         private string address;
 
         public ContactData() { }
-        public ContactData( string firstname, string lastname, string nickname, string company, string mobile)
+        public ContactData(string firstname, string lastname, string nickname, string company, string mobile)
         {
-      
+
             this.firstName = firstname;
             this.lastName = lastname;
             this.nickName = nickname;
@@ -55,7 +57,7 @@ namespace addressbook
             else { return Lastname.CompareTo(other.Lastname); }
         }
 
-        
+
 
         public bool Equals(ContactData other)
         {
@@ -67,10 +69,11 @@ namespace addressbook
             {
                 return true;
             }
-            return ((FirstName == other.FirstName)&&(Lastname == other.Lastname));
+            return ((FirstName == other.FirstName) && (Lastname == other.Lastname));
         }
 
-        public string Mobile{
+        [Column(Name = "mobile"), NotNull]
+        public string Mobile {
             get
             {
                 if (mobile != null)
@@ -98,6 +101,7 @@ namespace addressbook
             return "name=" + FirstName;
         }
 
+        [Column(Name = "home"), NotNull]
         public string Homephone
         {
             get
@@ -117,6 +121,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "work"), NotNull]
         public string WorkPhone {
             get
             {
@@ -135,6 +140,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "address"), NotNull]
         public string Address
         {
             get
@@ -154,6 +160,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "email2"), NotNull]
         public string Email2
         {
             get
@@ -173,6 +180,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "email3"), NotNull]
         public string Email3
         {
             get
@@ -192,6 +200,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "email"), NotNull]
         public string Email
         {
             get
@@ -230,6 +239,7 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "company"), NotNull]
         public string Company
         {
             get
@@ -249,7 +259,8 @@ namespace addressbook
             }
         }
 
-        public string Lastname{
+        [Column(Name = "lastname"), NotNull]
+        public string Lastname {
             get
             {
                 if (lastName != null)
@@ -267,9 +278,11 @@ namespace addressbook
             }
         }
 
+        [Column(Name = "nickname"), NotNull]
         public string Nickname
-        {get;set;}
+        { get; set; }
 
+        [Column(Name = "firstname"), NotNull]
         public string FirstName
         {
             get
@@ -286,6 +299,17 @@ namespace addressbook
             set
             {
                 firstName = value;
+            }
+        }
+
+        [Column(Name = "id"), PrimaryKey, Identity]
+        public string Id { get; set; }
+
+        public static List<ContactData> GetAll()
+        {
+          using (AddressBookDB db = new AddressBookDB())
+            {
+            return (from g in db.Contacts select g).ToList(); 
             }
         }
 
@@ -347,7 +371,6 @@ namespace addressbook
             { return ""; }
             return Regex.Replace(mail, "[ ]", "")+"\r\n";
         }
-
 
         private string CleanUp(string phone)
         {
