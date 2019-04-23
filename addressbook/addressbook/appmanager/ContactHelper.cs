@@ -37,9 +37,22 @@ namespace addressbook
         private void SelectGroupInFilter(string nameGroup)
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(nameGroup);
-           
+        }
 
-
+        public void AdditionalContactsToGroup()
+        {
+            ContactData contactData = new ContactData();
+            contactData.FirstName = "FirstNmae1";
+            contactData.Lastname = "LastName1";
+            contactData.Address = "Address1";
+            contactData.Company = "Company1";
+            contactData.Homephone = "Homephone1";
+            contactData.Mobile = "Mobile1";
+            contactData.WorkPhone = "WorkPhone1";
+            contactData.Email = "Email1";
+            contactData.Email2 = "Email2";
+            contactData.Email3 = "Email3";
+            SetNewAttributes(contactData, "add");
         }
 
         public void AddContactToGroup(ContactData contact, GroupData group)

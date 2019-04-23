@@ -53,18 +53,17 @@ namespace addressbook
                     HeaderGroup = parts[1], 
                     FooterGroup = parts[2]
                 });
-
             }
             return groups;
         }
 
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
-
             return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>))
                 .Deserialize(new StreamReader(@"groups.xml"));
         }
+
         [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void CreateNewGroups(GroupData groupData)
         {

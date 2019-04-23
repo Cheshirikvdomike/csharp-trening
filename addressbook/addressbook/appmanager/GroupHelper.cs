@@ -45,6 +45,18 @@ namespace addressbook
             return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
+        public void AdditionalGroup()
+        {
+            GroupData newGroup = new GroupData();
+            newGroup.NameGroup = "Name1";
+            newGroup.HeaderGroup = "Header1";
+            newGroup.FooterGroup = "Footer1";
+            CreateNewGroup();//Начало создание новой группы
+            SetNewAttributesgroup(newGroup);//Установка аттрибутов группы
+            AcceptChangesNewGroup();//Применение установленых аттрибутов
+            ControlNewGroup();
+        }
+
         public GroupHelper RemoveGroup(int index)
         {
             manager.Navigation.GoToHomePage();
