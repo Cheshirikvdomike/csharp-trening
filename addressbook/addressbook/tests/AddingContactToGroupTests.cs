@@ -21,7 +21,12 @@ namespace addressbook
             GroupData group = null;//Создаём и инициализируем контейнер для будущей выбранной группы
             List<ContactData> oldList = null;//Создаём и инициализируем контейнер для будущего списка контактов выбранной группы
             ContactData contact = null; //создаём и инициализируем контейнер для будущего выбранного контакта
-            for (int i = 0; i < listGroups.Count; i++)//Начинаем перебирать группы с проверкой на наличие все контактов в выбранной группе
+            if (ContactData.GetAll().Count() == 0)
+            {
+
+                app.Contacts.AdditionalContactsToGroup();
+            }
+            for (int i = 0; i < listGroups.Count; i++)//Начинаем перебирать группы с проверкой на наличие всех контактов в выбранной группе
             {
                 group = listGroups[i]; //Выбираем группу
                 oldList = group.GetContacts(); //Получаем список всех контактов группы
@@ -29,7 +34,7 @@ namespace addressbook
                 {
                     contact = ContactData.GetAll().Except(oldList).First();//Если отсутствующий контакт найден, то получаем первый не добавленный
                     break;//Выходим из цикла
-                } else if ` (i == listGroups.Count-1)//Если не находим группу с недобавленными контактами
+                } else if  (i == listGroups.Count - 1)//Если не находим группу с недобавленными контактами
                 {
                     app.Group.AdditionalGroup();//то создаём новую группу
                     group = listGroups[listGroups.Count + 1];//Выбираем созданную группу и записываем её в контейнер

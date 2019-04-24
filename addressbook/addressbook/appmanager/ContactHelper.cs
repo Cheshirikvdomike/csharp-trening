@@ -42,16 +42,16 @@ namespace addressbook
         public void AdditionalContactsToGroup()
         {
             ContactData contactData = new ContactData();
-            contactData.FirstName = "FirstNmae1";
-            contactData.Lastname = "LastName1";
-            contactData.Address = "Address1";
-            contactData.Company = "Company1";
-            contactData.Homephone = "Homephone1";
-            contactData.Mobile = "Mobile1";
-            contactData.WorkPhone = "WorkPhone1";
-            contactData.Email = "Email1";
-            contactData.Email2 = "Email2";
-            contactData.Email3 = "Email3";
+            contactData.FirstName = BaseClass.GenerateRandomString(10);
+            contactData.Lastname = BaseClass.GenerateRandomString(10); 
+            contactData.Address = BaseClass.GenerateRandomString(10); 
+            contactData.Company = BaseClass.GenerateRandomString(10); 
+            contactData.Homephone = BaseClass.GenerateRandomPhonenumber(10);
+            contactData.Mobile = BaseClass.GenerateRandomPhonenumber(10);
+            contactData.WorkPhone = BaseClass.GenerateRandomPhonenumber(10);
+            contactData.Email = BaseClass.GenerateRandomString(10);
+            contactData.Email2 = BaseClass.GenerateRandomString(10);
+            contactData.Email3 = BaseClass.GenerateRandomString(10);
             SetNewAttributes(contactData, "add");
         }
 
