@@ -29,7 +29,7 @@ namespace addressbook
                 {
                     contact = ContactData.GetAll().Except(oldList).First();//Если отсутствующий контакт найден, то получаем первый не добавленный
                     break;//Выходим из цикла
-                } else if (i == listGroups.Count-1)//Если не находим группу с недобавленными контактами
+                } else if ` (i == listGroups.Count-1)//Если не находим группу с недобавленными контактами
                 {
                     app.Group.AdditionalGroup();//то создаём новую группу
                     group = listGroups[listGroups.Count + 1];//Выбираем созданную группу и записываем её в контейнер
