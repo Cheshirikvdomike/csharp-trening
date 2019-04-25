@@ -25,7 +25,7 @@ namespace addressbook
             ContactData contact = null;//Создаём и инициализируем контейнер  для будущего контакта
             if (oldList.Count == 0)//Проверяем наличие контактов в выбранной группе
             {
-                app.Contacts.AdditionalContactsToGroup();//Если контактов нет то создаём
+                app.Contacts.AddContactToGroup(ContactData.GetAll()[0], group);//Если контактов нет то создаём
                 oldList = group.GetContacts(); //Заново получаем список контактов
                 contact = oldList[0];//Выбираем первый из списка контактов
             }
